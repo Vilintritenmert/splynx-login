@@ -7,7 +7,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
+use app\models\SignupForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -46,20 +47,40 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccess'],
             ],
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
+
+    public function onAuthSuccess($client)
+    {
+        $attributes = $client->getUserAttributes();
+        // user login or signup comes here
+        $session = Yii::$app->session;
+        $session->set('user', $attributes);
+
+    }
+
+
     public function actionIndex()
     {
+        $session = Yii::$app->session;
+
+        if($session->has('user')) {
+            $model = new SignupForm();
+            $model->attributes = $session->get('user');
+
+
+            print_r(Yii::$app->params['api_key']);
+
+            return $this->render('form', [
+                'model' => $model
+            ]);
+        }
+
         return $this->render('index');
     }
 
@@ -68,20 +89,12 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionLogin()
+    public function actionSignup()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        die('1');
+        $model = new SignupForm();
     }
+
 
     /**
      * Logout action.

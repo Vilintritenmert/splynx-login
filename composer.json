@@ -18,7 +18,8 @@
         "yiisoft/yii2": "~2.0.5",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "yiisoft/yii2-authclient": "^2.1"
+        "yiisoft/yii2-authclient": "^2.1",
+        "splynx/splynx-php-api":"dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -27,8 +28,16 @@
 
         "codeception/base": "^2.2.3",
         "codeception/verify": "~0.3.1",
-        "codeception/specify": "~0.4.3"
+        "codeception/specify": "~0.4.3",
+
+        "firephp/firephp-core": "*"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://git@bitbucket.org/splynx/splynx-php-api.git"
+        }
+    ],
     "config": {
         "process-timeout": 1800
     },

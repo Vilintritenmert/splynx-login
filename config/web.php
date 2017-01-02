@@ -7,6 +7,17 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => '716175945199953',
+                    'clientSecret' => 'e6eeeca66478d939c674fa28a998ad60',
+                    'attributeNames' => ['name', 'email'],
+                ],
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'XcSe6Bm-mVBLDhs3i4HednAt_YON3s4G',
