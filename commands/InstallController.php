@@ -31,6 +31,8 @@ class InstallController extends Controller
         $baseDir = \Yii::$app->getBasePath();
         // Create API key
 
+        $paramsFilePath = $baseDir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.php';
+
         // Set Splynx dir
         $splynxDir = '/var/www/splynx/';
 
@@ -51,7 +53,7 @@ class InstallController extends Controller
         exec($splynxDir . 'system/script/addon api-key-white-list --id=' . $apiKeyId . ' --list="' . implode(',', $ips) . '"');
 
         $baseParamsFile = \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.example.php';
-        $paramsFilePath = $baseDir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.php';
+
         $params = file_get_contents($baseParamsFile);
 
         // Set Api host to config
