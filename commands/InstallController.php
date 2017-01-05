@@ -44,7 +44,6 @@ class InstallController extends Controller
         $paths = [
             \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'runtime' => '0777',
             \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'assets' => '0777',
-            \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'data' => '0777',
             \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'yii' => '0755'
         ];
         self::chmodFiles($paths);
