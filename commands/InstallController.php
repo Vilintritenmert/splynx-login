@@ -38,6 +38,9 @@ class InstallController extends Controller
         if (!$apiKeyId) {
             exit("Error: Create API key failed!\n");
         }
+
+        exec($splynxDir . 'system/script/addon set-api-key-permission --id="' . $apiKeyId . '" --controller="api\admin\customers\Customer" --action="index" --rule="allow"');
+
         $paramsFilePath = $baseDir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.php';
 
         // Chmod

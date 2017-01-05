@@ -27,7 +27,7 @@ class SignupForm extends Model
     public $confirm_password;
     public $user_login;
 
-    public static $apiUrl = 'admin/customers/customer';
+    public static $apiUrl = '/admin/customers/customer';
 
     /**
      * @return array the validation rules.
