@@ -42,7 +42,8 @@
     ],
     "autoload": {
         "files": [
-            "library/helpers.php"
+            "library/helpers.php",
+            "/var/www/splynx/addons/splynx-addon-base/vendor/autload.php"
         ]
     },
     "config": {
