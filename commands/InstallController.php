@@ -64,6 +64,20 @@ class InstallController extends Controller
         $baseIP = reset($ips);
         exec($splynxDir . 'system/script/addon api-key-white-list --id=' . $apiKeyId . ' --list="' . implode(',', $ips) . '"');
 
+        $baseParamsFile = \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.example.php';
+        $params = file_get_contents($baseParamsFile);
+
+        // Set Api host to config
+        $params = preg_replace('/(("|\')api_domain("|\')\s*=>\s*)(""|\'\')/', "\\1'http://$baseIP/'", $params);
+
+        // Set Api key to config
+        $params = preg_replace('/(("|\')api_key("|\')\s*=>\s*)(""|\'\')/', "\\1'$apiKeyKey'", $params);
+
+        // Set Api secret to config
+        $params = preg_replace('/(("|\')api_secret("|\')\s*=>\s*)(""|\'\')/', "\\1'$apiKeySecret'", $params);
+
+        file_put_contents($paramsFilePath, $params);
+
         // Add additional fields
         $fields = [
             [
