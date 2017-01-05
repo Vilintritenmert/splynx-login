@@ -98,11 +98,14 @@ class SiteController extends Controller
 
             $login = new LoginForm();
             if($login->load(['password'=>Yii::$app->request->post('password'), 'id'=>$model->user_login]) && $login->login()){
-                return $this->redirect('/portal',302);
+
+                print_r($login);
+
+                //return $this->redirect('/portal',302);
             }
         }
 
-        return $this->goBack((!empty(Yii::$app->request->referrer) ? Yii::$app->request->referrer : null));
+        //return $this->goBack((!empty(Yii::$app->request->referrer) ? Yii::$app->request->referrer : null));
     }
 
 
