@@ -29,7 +29,15 @@ class InstallController extends Controller
         echo 'Start install..' . "\n";
 
         $baseDir = \Yii::$app->getBasePath();
+        // Create API key
 
+        // Set Splynx dir
+        $splynxDir = '/var/www/splynx/';
+
+        $apiKeyId = (int)exec($splynxDir . 'system/script/addon add-or-get-api-key --title="Cashdesk"');
+        if (!$apiKeyId) {
+            exit("Error: Create API key failed!\n");
+        }
         $paramsFilePath = $baseDir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.php';
 
         // Chmod
