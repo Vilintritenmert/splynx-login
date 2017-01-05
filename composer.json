@@ -19,7 +19,9 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "yiisoft/yii2-authclient": "^2.1",
-        "splynx/splynx-php-api":"dev-master"
+        "splynx/splynx-php-api":"dev-master",
+        "guzzlehttp/guzzle": "^6.2",
+        "2amigos/yii2-transliterator-helper": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -38,6 +40,11 @@
             "url":  "https://git@bitbucket.org/splynx/splynx-php-api.git"
         }
     ],
+    "autoload": {
+        "files": [
+            "library/helpers.php"
+        ]
+    },
     "config": {
         "process-timeout": 1800
     },

@@ -85,54 +85,27 @@ class SiteController extends Controller
     }
 
     /**
-     * Login action.
+     * Signup action.
      *
      * @return string
      */
     public function actionSignup()
     {
-        die('1');
+
         $model = new SignupForm();
-    }
 
+        if($model->load(Yii::$app->request->post()) && $model->signup()){
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
+            $login = new LoginForm();
+            if($login->load(['password'=>Yii::$app->request->post('password'), 'id'=>$model->user_login]) && $login->login()){
+                return $this->redirect('/portal',302);
+            }
         }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+
+        return $this->goBack((!empty(Yii::$app->request->referrer) ? Yii::$app->request->referrer : null));
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+
+
+
 }
