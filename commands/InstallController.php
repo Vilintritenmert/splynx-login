@@ -39,20 +39,6 @@ class InstallController extends Controller
             exit("Error: Create API key failed!\n");
         }
 
-        exec($splynxDir . 'system/script/addon set-api-key-permission --id="' . $apiKeyId . '" --controller="api\admin\customers\Customer" --action="index" --rule="allow"');
-
-        $paramsFilePath = $baseDir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.php';
-
-        // Chmod
-        $paths = [
-            \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'runtime' => '0777',
-            \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'assets' => '0777',
-            \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'yii' => '0755'
-        ];
-        self::chmodFiles($paths);
-
-        $splynxDir = '/var/www/splynx/';
-
         $result = exec($splynxDir . 'system/script/addon get-api-key-and-secret --id=' . $apiKeyId);
         if (!$result) {
             exit("Error: Get API key anf secret failed!\n");
@@ -65,6 +51,7 @@ class InstallController extends Controller
         exec($splynxDir . 'system/script/addon api-key-white-list --id=' . $apiKeyId . ' --list="' . implode(',', $ips) . '"');
 
         $baseParamsFile = \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.example.php';
+        $paramsFilePath = $baseDir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'params.php';
         $params = file_get_contents($baseParamsFile);
 
         // Set Api host to config
@@ -77,6 +64,20 @@ class InstallController extends Controller
         $params = preg_replace('/(("|\')api_secret("|\')\s*=>\s*)(""|\'\')/', "\\1'$apiKeySecret'", $params);
 
         file_put_contents($paramsFilePath, $params);
+
+        exec($splynxDir . 'system/script/addon set-api-key-permission --id="' . $apiKeyId . '" --controller="api\admin\customers\Customer" --action="index" --rule="allow"');
+
+
+        // Chmod
+        $paths = [
+            \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'runtime' => '0777',
+            \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'assets' => '0777',
+            \Yii::$app->getBasePath() . DIRECTORY_SEPARATOR . 'yii' => '0755'
+        ];
+        self::chmodFiles($paths);
+
+        $splynxDir = '/var/www/splynx/';
+
 
         // Add additional fields
         $fields = [
