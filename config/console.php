@@ -22,8 +22,7 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
-        ],
-        'db' => $db,
+        ]
     ],
     'params' => $params,
     /*
