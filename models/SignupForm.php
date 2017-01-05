@@ -64,6 +64,9 @@ class SignupForm extends Model
 
         $result = ApiHelper::getInstance()->post(self::$apiUrl, $request);
 
+        print_r($result);
+        die;
+
         return array_key_exists('id',$result) ? $result['id'] : 0;
     }
 
