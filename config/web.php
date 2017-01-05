@@ -1,5 +1,10 @@
 <?php
 
+$paramsFile = __DIR__ . DIRECTORY_SEPARATOR . 'params.php';
+if (!file_exists($paramsFile)) {
+    die('Error: ' . $paramsFile . ' not found! You must copy end edit example file!');
+}
+
 $params = require(__DIR__ . '/params.php');
 
 $config = [
