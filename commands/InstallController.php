@@ -36,7 +36,7 @@ class InstallController extends Controller
         // Set Splynx dir
         $splynxDir = '/var/www/splynx/';
 
-        $apiKeyId = (int)exec($splynxDir . 'system/script/addon add-or-get-api-key --title="Cashdesk"');
+        $apiKeyId = (int)exec($splynxDir . 'system/script/addon add-or-get-api-key --title="Social"');
         if (!$apiKeyId) {
             exit("Error: Create API key failed!\n");
         }
